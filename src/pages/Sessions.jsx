@@ -1,7 +1,15 @@
 import React from 'react';
 
 const fetchSessions = () => {
-    return Promise.resolve([111, 222, 333, 444, 555, 666, 777, 888, 999]);
+    // return Promise.resolve([111, 222, 333, 444, 555, 666, 777, 888, 999]);
+    return fetch(`api/test-server/sessions`)
+        .then(response => response.json())
+        .then(data => {
+            return Promise.resolve(data);
+        }).catch(error => {
+            console.error('/sessions - error: ', error);
+            return Promise.reject(error)
+        });
 }
 
 class Sessions extends React.Component {
@@ -12,7 +20,6 @@ class Sessions extends React.Component {
 
     componentDidMount() {
         fetchSessions().then(result => {
-            console.log('Sessions.componentDidMount()  - result: ', result);
             this.setState({ error: null, items: result })
         }).catch(error => {
             console.error('Sessions.componentDidMount() - error: %o', error);
@@ -42,7 +49,6 @@ class Sessions extends React.Component {
     }
 
     render() {
-        console.log('Sessions.render() - items: ', this.state.items);
         return (
             <div className="container-fluid">
                 <h2 className="align-middle text-center">{`Sessions`}</h2>

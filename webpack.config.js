@@ -34,6 +34,14 @@ module.exports = {
         static: {
             directory: path.join(__dirname, 'public')
         },
+        proxy: {
+            '/api': {
+                target: 'https://dev.powerflex.io',
+                pathRewrite: { '^/api': '' },
+                secure: false,
+                changeOrigin: true,
+            }
+        },
         historyApiFallback: true,
         port: 5000
     },
