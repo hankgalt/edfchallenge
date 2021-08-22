@@ -1,15 +1,19 @@
 import React from 'react';
 
 const fetchSessions = () => {
-    // return Promise.resolve([111, 222, 333, 444, 555, 666, 777, 888, 999]);
-    return fetch(`api/test-server/sessions`)
-        .then(response => response.json())
-        .then(data => {
-            return Promise.resolve(data);
-        }).catch(error => {
-            console.error('/sessions - error: ', error);
-            return Promise.reject(error)
-        });
+    return Promise.resolve([111, 222, 333, 444, 555, 666, 777, 888, 999]);
+    // return fetch(`api/test-server/sessions`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         return Promise.resolve(data);
+    //     }).catch(error => {
+    //         console.error('/sessions - error: ', error);
+    //         return Promise.reject(error)
+    //     });
+}
+
+const sessionCardStyle = {
+    padding: '2px'
 }
 
 class Sessions extends React.Component {
@@ -37,7 +41,7 @@ class Sessions extends React.Component {
         let items = []
         this.state.items.forEach((item, idx) => {
             items.push(
-                <div key={`${idx}-${item}`} className="col-xs-4 col-md-3">
+                <div key={`${idx}-${item}`} className="col-xs-4 col-md-3" style={sessionCardStyle}>
                     <button className="btn btn-default" type="submit">{`Session: ${item}`}</button>
                 </div>
             )

@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const cardStyle = {
-    height: '100px',
-    margin: '2px',
-    border: '1px solid red',
+    height: '200px',
+    margin: '2px'
 }
 
 function Home() {
