@@ -30,7 +30,7 @@ class App extends React.Component {
             <div className="jumbotron">
                 <div className="container-fluid" style={bodyStyle}>
                     <Router history={history}>
-                        <Link className="nav-link" to="/">
+                        <Link to="/">
                             <div className="row" style={headerStyle}>
                                 <h1 className="align-middle text-center">{'Sessions Management'}</h1>
                             </div>
