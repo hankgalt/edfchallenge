@@ -33,7 +33,7 @@ class App extends React.Component {
                     <Router history={history}>
                         <Link className="nav-link" to="/">
                             <div className="row" style={headerStyle}>
-                                <h1 className="align-middle">{'Sessions Management'}</h1>
+                                <h1 className="align-middle text-center">{'Sessions Management'}</h1>
                             </div>
                         </Link>
                         <div className="row">

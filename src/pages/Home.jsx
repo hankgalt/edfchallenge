@@ -13,12 +13,12 @@ function Home() {
             <div className="col-xs-2 col-md-2"></div>
             <Link className="nav-link" to="/sessions">
                 <div style={cardStyle} className="col-xs-7 col-md-4">
-                    <h2>{"Sessions"}</h2>
+                    <h2 className="align-middle text-center">{"Sessions"}</h2>
                 </div>
             </Link>
             <Link className="nav-link" to="/preferences">
                 <div style={cardStyle} className="col-xs-7 col-md-4">
-                    <h2>{'Preferences'}</h2>
+                    <h2 className="align-middle text-center">{'Preferences'}</h2>
                 </div>
             </Link>
             <div className="col-xs-2 col-md-2"></div>
