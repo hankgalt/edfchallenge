@@ -4,6 +4,7 @@
   "description": "EDF technical challenge",
   "main": "index.jsx",
   "scripts": {
+    "start": "webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
