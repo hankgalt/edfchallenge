@@ -7,7 +7,8 @@ import Sessions from '../pages/Sessions';
 import Preferences from '../pages/Preferences';
 
 const bodyStyle = {
-    height: '90vh',
+    height: '100%',
+    minHeight: '90vh',
     overflowY: 'hidden'
 }
 
