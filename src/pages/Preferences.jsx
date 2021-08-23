@@ -32,12 +32,39 @@ const formatPreferencesRequest = (preferences) => {
     }
 }
 
+const validate = (value, values, input) => {
+    const name = input.name;
+
+    if (name === "milesNeeded" || name === "chargeDuration" || name === "mileage" || name === "batterySize") {
+        if (!value || value === '') return "A value greater than zero is required."
+        if (parseInt(value) < 1) return "A value greater than zero is required."
+    }
+
+    if (name === "year") {
+        if (!value || value === '') return "A value greater than zero is required."
+        if (parseInt(value) < 1980) return "Not sure if anything before 1980 is valid."
+    }
+
+    if (name === "make" || name === "model") {
+        if (!value || value === '') return "Required."
+    }
+}
+
 const formInputStyle = {
-    padding: '2px 0px 2px 0px'
+    marginTop: '5px'
+}
+
+const buttonInputStyle = {
+    marginTop: '10px'
+}
+
+const buttonStyle = {
+    marginRight: '5px'
 }
 
 const errorStyle = {
-    color: 'red'
+    color: 'red',
+    marginLeft: '5px'
 }
 
 const successStyle = {
@@ -48,13 +75,13 @@ class Preferences extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            milesNeeded: 0,
-            chargeDuration: 0,
+            milesNeeded: 1,
+            chargeDuration: 1,
             make: '',
             model: '',
-            year: 0,
-            mileage: 0,
-            batterySize: 0
+            year: 2021,
+            mileage: 1,
+            batterySize: 1
         };
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -88,73 +115,85 @@ class Preferences extends React.Component {
                     render={({ handleSubmit, form, submitting, pristine, values }) => (
                         <form onSubmit={handleSubmit}>
                             <div className="row" style={formInputStyle}>
-                                <label className="col-xs-4 col-md-3">Miles needed</label>
-                                <Field
-                                    name="milesNeeded"
-                                    component="input"
-                                    type="number"
-                                    className="col-xs-6 col-md-4"
-                                />
+                                <Field name="milesNeeded" validate={(value, values, input) => validate(value, values, input)}>
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <label className="col-xs-4 col-md-3">Miles needed</label>
+                                            <input {...input} type="number" min="1" className="col-xs-6 col-md-4"/>
+                                            {meta.error && meta.touched && <span style={errorStyle}>{meta.error}</span>}
+                                        </div>
+                                    )}
+                                </Field>
                             </div>
                             <div className="row" style={formInputStyle}>
-                                <label className="col-xs-4 col-md-3">Charge Duration</label>
-                                <Field
-                                    name="chargeDuration"
-                                    component="input"
-                                    type="number"
-                                    className="col-xs-6 col-md-4"
-                                />
+                                <Field name="chargeDuration" validate={(value, values, input) => validate(value, values, input)}>
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <label className="col-xs-4 col-md-3">Charge Duration</label>
+                                            <input {...input} type="number" min="1" className="col-xs-6 col-md-4"/>
+                                            {meta.error && meta.touched && <span style={errorStyle}>{meta.error}</span>}
+                                        </div>
+                                    )}
+                                </Field>
                             </div>
                             <div className="row" style={formInputStyle}>
-                                <label className="col-xs-4 col-md-3">Make</label>
-                                <Field
-                                    name="make"
-                                    component="input"
-                                    type="text"
-                                    placeholder="Make"
-                                    className="col-xs-6 col-md-4"
-                                />
+                                <Field name="make" validate={(value, values, input) => validate(value, values, input)}>
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <label className="col-xs-4 col-md-3">Make</label>
+                                            <input {...input} type="text" placeholder="Make" className="col-xs-6 col-md-4"/>
+                                            {meta.error && meta.touched && <span style={errorStyle}>{meta.error}</span>}
+                                        </div>
+                                    )}
+                                </Field>
                             </div>
                             <div className="row" style={formInputStyle}>
-                                <label className="col-xs-4 col-md-3">Model</label>
-                                <Field
-                                    name="model"
-                                    component="input"
-                                    type="text"
-                                    placeholder="Model"
-                                    className="col-xs-6 col-md-4"
-                                />
+                                <Field name="model" validate={(value, values, input) => validate(value, values, input)}>
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <label className="col-xs-4 col-md-3">Model</label>
+                                            <input {...input} type="text" placeholder="Make" className="col-xs-6 col-md-4"/>
+                                            {meta.error && meta.touched && <span style={errorStyle}>{meta.error}</span>}
+                                        </div>
+                                    )}
+                                </Field>
                             </div>
                             <div className="row" style={formInputStyle}>
-                                <label className="col-xs-4 col-md-3">Year</label>
-                                <Field
-                                    name="year"
-                                    component="input"
-                                    type="number"
-                                    className="col-xs-6 col-md-4"
-                                />
+                                <Field name="year" validate={(value, values, input) => validate(value, values, input)}>
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <label className="col-xs-4 col-md-3">Year</label>
+                                            <input {...input} type="number" min="1980" className="col-xs-6 col-md-4"/>
+                                            {meta.error && meta.touched && <span style={errorStyle}>{meta.error}</span>}
+                                        </div>
+                                    )}
+                                </Field>
                             </div>
                             <div className="row" style={formInputStyle}>
-                                <label className="col-xs-4 col-md-3">Mileage</label>
-                                <Field
-                                    name="mileage"
-                                    component="input"
-                                    type="number"
-                                    className="col-xs-6 col-md-4"
-                                />
+                                <Field name="mileage" validate={(value, values, input) => validate(value, values, input)}>
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <label className="col-xs-4 col-md-3">Mileage</label>
+                                            <input {...input} type="number" min="1" className="col-xs-6 col-md-4"/>
+                                            {meta.error && meta.touched && <span style={errorStyle}>{meta.error}</span>}
+                                        </div>
+                                    )}
+                                </Field>
                             </div>
                             <div className="row" style={formInputStyle}>
-                                <label className="col-xs-4 col-md-3">Battery Size</label>
-                                <Field
-                                    name="batterySize"
-                                    component="input"
-                                    type="number"
-                                    className="col-xs-6 col-md-4"
-                                />
+                                <Field name="batterySize" validate={(value, values, input) => validate(value, values, input)}>
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <label className="col-xs-4 col-md-3">Battery Size</label>
+                                            <input {...input} type="number" min="1" className="col-xs-6 col-md-4"/>
+                                            {meta.error && meta.touched && <span style={errorStyle}>{meta.error}</span>}
+                                        </div>
+                                    )}
+                                </Field>
                             </div>
                             <div className="row" style={formInputStyle}>
-                                <div className="col-xs-10 col-md-7 align-middle">
-                                    <button className="btn btn-default" type="submit" disabled={submitting || pristine}>
+                                <div className="col-xs-10 col-md-7 text-center" style={buttonInputStyle}>
+                                    <button className="btn btn-default" type="submit" disabled={submitting || pristine} style={buttonStyle}>
                                         Submit
                                     </button>
                                     <button
@@ -162,6 +201,7 @@ class Preferences extends React.Component {
                                         type="button"
                                         onClick={form.reset}
                                         disabled={submitting || pristine}
+                                        style={buttonStyle}
                                     >
                                         Reset
                                     </button>

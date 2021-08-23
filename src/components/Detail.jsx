@@ -10,11 +10,16 @@ const fetchSessionData = (itemID) => {
         .then(response => {
             return response.json();
         }).then(data => {
+            localStorage.setItem(itemID, JSON.stringify(data));
             return Promise.resolve(data);
         }).catch(error => {
             console.error(`/sessions/${itemID} - error: `, error);
             return Promise.reject(error)
         });
+}
+
+const chartStyle = {
+    margin: '10px'
 }
 
 class Detail extends React.Component {
@@ -45,11 +50,8 @@ class Detail extends React.Component {
 
         if (!this.state.item) {
             return(
-                <div className="row">
+                <div className="row align-middle text-center">
                     <div className="col-xs-4 col-md-3">{`Session ID: ${itemID}`}</div>
-                    <div className="col-xs-4 col-md-3">{'Acccount Name'}</div>
-                    <div className="col-xs-4 col-md-3">{'Timezone'}</div>
-                    <div className="col-xs-4 col-md-3">{'Vehicle Name'}</div>
                 </div>
             );
         }
@@ -88,11 +90,10 @@ class Detail extends React.Component {
         };
         return(
             <div className="row">
-                <div className="col-xs-4 col-md-3">{itemID}</div>
-                <div className="col-xs-4 col-md-3">{this.state.item.acc.name}</div>
-                <div className="col-xs-4 col-md-3">{this.state.item.acc.timezone}</div>
-                <div className="col-xs-4 col-md-3">{session.vehicle_name}</div>
-                <div className="col-xs-18 col-md-12">
+                <div className="row align-middle text-center">
+                    <h3>{itemID} {this.state.item.acc.name} {this.state.item.acc.timezone} {session.vehicle_name}</h3>
+                </div>
+                <div className="row" style={chartStyle}>
                     <Line data={data} options={options} />
                 </div>
             </div>

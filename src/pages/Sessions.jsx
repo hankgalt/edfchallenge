@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
 
 import Detail from '../components/Detail';
 
@@ -50,7 +49,7 @@ class Sessions extends React.Component {
         let items = []
         this.state.items.forEach((item, idx) => {
             items.push(
-                <div key={`${idx}-${item}`} className="col-xs-4 col-md-3" style={sessionCardStyle}>
+                <div key={`${idx}-${item}`} className="col-xs-4 col-md-3 text-center" style={sessionCardStyle}>
                     <button className="btn btn-default" type="submit" onClick={()=>this.itemSelected(item)}>
                         {`Session: ${item}`}
                     </button>
