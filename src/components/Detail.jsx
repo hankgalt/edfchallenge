@@ -1,5 +1,9 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { format } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
+
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 const fetchSessionData = (itemID) => {
     return fetch(`api/test-server/sessions/${itemID}`)
@@ -42,13 +46,10 @@ class Detail extends React.Component {
         if (!this.state.item) {
             return(
                 <div className="row">
-                    <div className="row">
-                        <div className="col-xs-4 col-md-3">{`Session ID: ${itemID}`}</div>
-                        <div className="col-xs-4 col-md-3">{'Acccount Name'}</div>
-                        <div className="col-xs-4 col-md-3">{'Timezone'}</div>
-                        <div className="col-xs-4 col-md-3">{'Vehicle Name'}</div>
-                    </div>
-                    {this.state.item && <Line data={data} options={options} />}
+                    <div className="col-xs-4 col-md-3">{`Session ID: ${itemID}`}</div>
+                    <div className="col-xs-4 col-md-3">{'Acccount Name'}</div>
+                    <div className="col-xs-4 col-md-3">{'Timezone'}</div>
+                    <div className="col-xs-4 col-md-3">{'Vehicle Name'}</div>
                 </div>
             );
         }
@@ -65,17 +66,19 @@ class Detail extends React.Component {
             },
         };
         const data = {
-            labels: session.chart_data.time,
+            labels: session.chart_data.time.map(timeStamp => {
+                return format(utcToZonedTime(timeStamp*1000, timeZone), "yyyy-MM-dd HH:mm:ss");
+            }),
             datasets: [
                 {
-                    label: 'Actual energy delivered',
+                    label: 'Actual energy delivered (KWh)',
                     data: session.chart_data.actual_energy_delivered,
                     fill: false,
                     backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgba(255, 99, 132, 0.2)',
                 },
                 {
-                    label: 'Predictive energy delivered',
+                    label: 'Predictive energy delivered (KWh)',
                     data: session.chart_data.predictive_energy_delivered,
                     fill: false,
                     backgroundColor: 'rgb(54, 162, 235)',
@@ -85,13 +88,13 @@ class Detail extends React.Component {
         };
         return(
             <div className="row">
-                <div className="row">
-                    <div className="col-xs-4 col-md-3">{`Session ID: ${itemID}`}</div>
-                    <div className="col-xs-4 col-md-3">{'Acccount Name'}</div>
-                    <div className="col-xs-4 col-md-3">{'Timezone'}</div>
-                    <div className="col-xs-4 col-md-3">{'Vehicle Name'}</div>
+                <div className="col-xs-4 col-md-3">{itemID}</div>
+                <div className="col-xs-4 col-md-3">{this.state.item.acc.name}</div>
+                <div className="col-xs-4 col-md-3">{this.state.item.acc.timezone}</div>
+                <div className="col-xs-4 col-md-3">{session.vehicle_name}</div>
+                <div className="col-xs-18 col-md-12">
+                    <Line data={data} options={options} />
                 </div>
-                <Line data={data} options={options} />
             </div>
         );
     }

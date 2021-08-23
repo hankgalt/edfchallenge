@@ -4,7 +4,6 @@ import { Route, Switch, Link } from 'react-router-dom';
 import Detail from '../components/Detail';
 
 const fetchSessions = () => {
-    // return Promise.resolve([111, 222, 333, 444, 555, 666, 777, 888, 999]);
     return fetch(`api/test-server/sessions`)
         .then(response => response.json())
         .then(data => {
@@ -23,10 +22,9 @@ class Sessions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-    }
 
-    itemSelected(item) {
-        this.setState({ selected: item })
+        this.itemSelected = this.itemSelected.bind(this);
+        this.renderSessions = this.renderSessions.bind(this);
     }
 
     componentDidMount() {
@@ -36,6 +34,10 @@ class Sessions extends React.Component {
             console.error('Sessions.componentDidMount() - error: %o', error);
             this.setState({ error: error.message, items: null })
         });
+    }
+
+    itemSelected(item) {
+        this.setState({ selected: item })
     }
 
     renderSessions() {
