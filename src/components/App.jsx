@@ -41,7 +41,7 @@ class App extends React.Component {
                                 <Route exact path="/" component={Home}/>
                                 <Route path="/sessions" component={Sessions}/>
                                 <Route path="/preferences" component={Preferences}/>
-                                <Redirect from="*" to="/"/>
+                                <Route path='*' component={Home}/>
                             </Switch>
                         </div>
                     </Router>

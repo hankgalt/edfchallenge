@@ -37,7 +37,7 @@ const validate = (value, values, input) => {
 
     if (name === "milesNeeded" || name === "chargeDuration" || name === "mileage" || name === "batterySize") {
         if (!value || value === '') return "A value greater than zero is required."
-        if (parseInt(value) < 1) return "A value greater than zero is required."
+        if (parseInt(value) < 1) return "A value greater than zero is required. "
     }
 
     if (name === "year") {

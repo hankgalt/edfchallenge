@@ -30,7 +30,7 @@ class Sessions extends React.Component {
         fetchSessions().then(result => {
             this.setState({ error: null, items: result })
         }).catch(error => {
-            console.error('Sessions.componentDidMount() - error: %o', error);
+            console.error('Sessions.componentDidMount()  - error: %o', error);
             this.setState({ error: error.message, items: null })
         });
     }

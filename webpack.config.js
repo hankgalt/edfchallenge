@@ -1,12 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: path.join(__dirname, 'src', 'index.jsx'),
     output: {
         path: path.join(__dirname, 'public'),
-        filename: 'index.bundle.js',
-        sourceMapFilename: "index.bundle.js.map"
+        filename: '[name].js'
     },
     mode: process.env.NODE_ENV || 'development',
     resolve: {
@@ -28,6 +28,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'src', 'index.html')
+        }),
+        new webpack.SourceMapDevToolPlugin({
+            filename: '[file].map[query]'
         })
     ],
     devServer: {
